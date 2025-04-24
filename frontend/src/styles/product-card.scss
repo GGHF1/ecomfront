@@ -1,0 +1,43 @@
+// frontend/src/styles/product-card.scss
+.product-listing {
+    padding: 20px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .product-card {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: center;
+  }
+
+  .product-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: 200px;
+  }
+  
+  .product-card .out-of-stock {
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+  
+  .out-of-stock-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font: 20px;
+    padding: 5px 10px;
+  }
