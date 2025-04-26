@@ -28,7 +28,7 @@ function Header() {
         {data.categories.map((category) => (
           <NavLink
             key={category.id}
-            to={`/category/${category.name}`}
+            to={`/${category.name}`}
             data-testid={
               location.pathname === `/${category.name}` ||
               (category.name === 'all' && location.pathname === '/')
