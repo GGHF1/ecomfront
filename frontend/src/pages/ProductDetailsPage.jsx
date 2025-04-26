@@ -36,21 +36,19 @@ function ProductDetailsPage() {
     alert('Added to cart!');
   };
 
-  // Navigate to previous image
   const prevImage = () => {
     setSelectedImage((prev) => 
       prev === 0 ? product.gallery.length - 1 : prev - 1
     );
   };
 
-  // Navigate to next image
   const nextImage = () => {
     setSelectedImage((prev) => 
       prev === product.gallery.length - 1 ? 0 : prev + 1
     );
   };
 
-  // Check if all required attributes are selected
+  // check if all required attributes are selected
   const requiredAttributeSets = product.attributeSets || [];
   const allSelected = requiredAttributeSets.every(
     (set) => selectedAttributes[set.name] !== undefined
@@ -80,8 +78,7 @@ function ProductDetailsPage() {
               className={product.inStock ? '' : 'out-of-stock'}
             />
             {!product.inStock && <div className="out-of-stock-overlay">OUT OF STOCK</div>}
-            
-            {/* Image navigation arrows */}
+        
             {product.gallery.length > 1 && (
               <>
                 <button className="gallery-nav prev" onClick={prevImage}>

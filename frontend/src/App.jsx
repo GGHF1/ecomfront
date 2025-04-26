@@ -1,4 +1,3 @@
-// frontend/src/App.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
@@ -13,7 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<ProductListingPage />} />
-          <Route path="/category/:categoryName" element={<ProductListingPage />} />
+          <Route path="/:categoryName" element={<ProductListingPage />} />
           <Route path="/product/:productId" element={<ProductDetailsPage />} />
         </Routes>
       </BrowserRouter>

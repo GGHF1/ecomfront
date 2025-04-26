@@ -6,7 +6,7 @@ import '../styles/cart-overlay.scss';
 function CartOverlay({ onClose }) {
   const { cart, updateQuantity } = useContext(CartContext);
   
-  // Calculate total price (using USD currency)
+  // total price
   const totalPrice = cart.reduce((total, itemData, index) => {
     const { product, quantity } = itemData;
     const priceItem = product.prices.find((p) => p?.currency?.label === 'USD') || 
@@ -16,7 +16,7 @@ function CartOverlay({ onClose }) {
   }, 0);
 
   return (
-    <div className="cart-overlay-container">
+    <div className="cart-overlay-container" data-testid="cart-overlay">
       <div className="cart-overlay-backdrop" onClick={onClose}>
       </div>
       <div className="cart-overlay">
@@ -27,19 +27,19 @@ function CartOverlay({ onClose }) {
         {cart.length === 0 ? (
           <p className="empty-cart-message">Your shopping bag is empty</p>
         ) : (
-          <div className="cart-items">
+          <div className="cart-items" data-testid="cart-items">
             {cart.map((itemData, index) => {
               const { product, selectedOptions, quantity } = itemData;
               const priceItem = product.prices.find((p) => p?.currency?.label === 'USD') || 
                                (product.prices.length > 0 ? product.prices[0] : null);
               
               return (
-                <div key={index} className="cart-item">
+                <div key={index} className="cart-item" data-testid={`cart-item-${index}`}>
                   <div className="cart-item-details">
-                    <h4 className="cart-item-brand">{product.brand}</h4>
-                    <h4 className="cart-item-name">{product.name}</h4>
+                    <h4 className="cart-item-brand" data-testid={`cart-item-brand-${index}`}>{product.brand}</h4>
+                    <h4 className="cart-item-name" data-testid={`cart-item-name-${index}`}>{product.name}</h4>
                     
-                    <div className="cart-item-price">
+                    <div className="cart-item-price" data-testid={`cart-item-price-${index}`}>
                       {priceItem && (
                         <p>
                           {priceItem.currency.symbol}{priceItem.amount.toFixed(2)}
@@ -47,7 +47,6 @@ function CartOverlay({ onClose }) {
                       )}
                     </div>
                     
-                    {/* Display selected attributes only */}
                     {Object.entries(selectedOptions).map(([attrName, attrValue]) => {
                       const attributeSet = product.attributeSets.find(set => set.name === attrName);
                       if (!attributeSet) return null;
@@ -86,7 +85,7 @@ function CartOverlay({ onClose }) {
                     })}
                   </div>
                   
-                  <div className="cart-item-quantity">
+                  <div className="cart-item-quantity" data-testid={`cart-item-quantity-${index}`}>
                     <button 
                       className="quantity-btn increase"
                       onClick={() => updateQuantity(index, 1)}
@@ -109,7 +108,7 @@ function CartOverlay({ onClose }) {
                     </button>
                   </div>
                   
-                  <div className="cart-item-image">
+                  <div className="cart-item-image" data-testid={`cart-item-image-${index}`}>
                     <img src={product.gallery[0]} alt={product.name} />
                   </div>
                 </div>
@@ -121,13 +120,16 @@ function CartOverlay({ onClose }) {
         <div className="cart-footer">
           <div className="cart-total" data-testid="cart-total">
             <span className="total-label">Total</span>
-            <span className="total-amount">
+            <span className="total-amount" data-testid="cart-total-amount">
               ${totalPrice.toFixed(2)}
             </span>
           </div>
           
           <div className="cart-actions">
-            <button className="checkout-btn">
+            <Link to="/cart" className="view-bag-btn" data-testid="view-bag-button" onClick={onClose}>
+              View Bag
+            </Link>
+            <button className="checkout-btn" data-testid="checkout-button">
               Place Order
             </button>
           </div>
