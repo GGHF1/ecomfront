@@ -4,7 +4,12 @@ import CartContext from '../context/CartContext';
 import '../styles/cart-overlay.scss';
 
 function CartOverlay({ onClose }) {
-  const { cart, updateQuantity } = useContext(CartContext);
+  const { cart, updateQuantity, toggleCart } = useContext(CartContext);
+  
+  const handleClose = () => {
+    if (onClose) onClose();
+    else toggleCart();
+  };
   
   // total price
   const totalPrice = cart.reduce((total, itemData, index) => {
@@ -55,7 +60,7 @@ function CartOverlay({ onClose }) {
                       if (!attribute) return null;
                       
                       const kebabName = attrName.toLowerCase().replace(/\s+/g, '-');
-                      // adapted values from PDP page for QA testing
+                      // Use raw value instead of display_value
                       const rawValue = attribute.value;
                       
                       return (

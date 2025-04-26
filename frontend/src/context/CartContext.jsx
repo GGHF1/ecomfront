@@ -7,6 +7,8 @@ export function CartProvider({ children }) {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -28,6 +30,9 @@ export function CartProvider({ children }) {
       }
       return [...prev, { product, selectedOptions, quantity: 1 }];
     });
+    
+    // automatically open cart when an item is added for QA testing
+    setIsCartOpen(true);
   };
 
   const updateQuantity = (index, delta) => {
@@ -47,9 +52,22 @@ export function CartProvider({ children }) {
   const clearCart = () => {
     setCart([]);
   };
+  
+  // Add toggle function for cart visibility
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, clearCart }}>
+    <CartContext.Provider value={{ 
+      cart, 
+      addToCart, 
+      updateQuantity, 
+      clearCart,
+      isCartOpen,
+      setIsCartOpen,
+      toggleCart
+    }}>
       {children}
     </CartContext.Provider>
   );

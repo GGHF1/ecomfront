@@ -1,26 +1,20 @@
 import { useQuery } from '@apollo/client';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useContext, useState } from 'react';  
+import { useContext } from 'react';
 import { GET_CATEGORIES } from '../graphql/queries';
 import CartContext from '../context/CartContext';
-import CartOverlay from './CartOverlay'; 
+import CartOverlay from './CartOverlay';
 import '../styles/header.scss';
 
 function Header() {
-  const { cart } = useContext(CartContext);
+  const { cart, isCartOpen, toggleCart } = useContext(CartContext);
   const { loading, error, data } = useQuery(GET_CATEGORIES);
   const location = useLocation();
-  const [isCartOpen, setIsCartOpen] = useState(false); 
 
   if (loading) return null;
   if (error) return null;
 
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  // toggle cart overlay
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
 
   return (
     <header>
