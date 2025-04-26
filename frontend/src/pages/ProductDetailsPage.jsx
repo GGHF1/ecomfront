@@ -107,7 +107,10 @@ function ProductDetailsPage() {
                 {attributeSet.attributes.map((attribute) => {
                   const isSelected = selectedAttributes[attributeSet.name] === attribute.value;
                   const kebabName = attributeSet.name.toLowerCase().replace(/\s+/g, '-');
-                  const kebabValue = attribute.display_value.toLowerCase().replace(/\s+/g, '-');
+                  
+                  // adapted values for QA testing
+                  const rawValue = attribute.value;
+                  const dataTestId = `product-attribute-${kebabName}-${rawValue}${isSelected ? '-selected' : ''}`;
 
                   if (attributeSet.type === 'swatch') {
                     return (
@@ -117,9 +120,7 @@ function ProductDetailsPage() {
                         style={{ backgroundColor: attribute.value }}
                         onClick={() => handleAttributeSelect(attributeSet.name, attribute.value)}
                         title={attribute.display_value}
-                        data-testid={`product-attribute-${kebabName}-${kebabValue}${
-                          isSelected ? '-selected' : ''
-                        }`}
+                        data-testid={dataTestId}
                       >
                         {isSelected && <span className="check-mark">✓</span>}
                       </div>
@@ -130,9 +131,7 @@ function ProductDetailsPage() {
                         key={attribute.id}
                         className={`attribute-button ${isSelected ? 'selected' : ''}`}
                         onClick={() => handleAttributeSelect(attributeSet.name, attribute.value)}
-                        data-testid={`product-attribute-${kebabName}-${kebabValue}${
-                          isSelected ? '-selected' : ''
-                        }`}
+                        data-testid={dataTestId}
                       >
                         {attribute.display_value}
                       </button>

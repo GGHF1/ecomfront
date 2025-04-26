@@ -55,7 +55,8 @@ function CartOverlay({ onClose }) {
                       if (!attribute) return null;
                       
                       const kebabName = attrName.toLowerCase().replace(/\s+/g, '-');
-                      const kebabValue = attribute.display_value.toLowerCase().replace(/\s+/g, '-');
+                      // adapted values from PDP page for QA testing
+                      const rawValue = attribute.value;
                       
                       return (
                         <div 
@@ -69,12 +70,12 @@ function CartOverlay({ onClose }) {
                               <div
                                 className="color-swatch selected"
                                 style={{ backgroundColor: attrValue }}
-                                data-testid={`cart-item-attribute-${kebabName}-${kebabValue}-selected`}
+                                data-testid={`cart-item-attribute-${kebabName}-${rawValue}-selected`}
                               />
                             ) : (
                               <div
                                 className="attribute-value selected"
-                                data-testid={`cart-item-attribute-${kebabName}-${kebabValue}-selected`}
+                                data-testid={`cart-item-attribute-${kebabName}-${rawValue}-selected`}
                               >
                                 {attribute.display_value}
                               </div>
