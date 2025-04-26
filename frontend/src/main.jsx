@@ -5,7 +5,7 @@ import App from './App.jsx';
 import './styles/main.scss';
 
 const client = new ApolloClient({
-  uri: 'http://ecom-test-web.infinityfreeapp.com/graphql', // Add /graphql to match your route
+  uri: 'https://ecomback-production.up.railway.app/graphql', // Add /graphql to match your route
   cache: new InMemoryCache(),
 });
 
