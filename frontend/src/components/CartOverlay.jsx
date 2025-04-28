@@ -132,9 +132,6 @@ function CartOverlay({ onClose }) {
           </div>
           
           <div className="cart-actions">
-            <Link to="/cart" className="view-bag-btn" data-testid="view-bag-button" onClick={onClose}>
-              View Bag
-            </Link>
             <button className="checkout-btn" data-testid="checkout-button">
               Place Order
             </button>
