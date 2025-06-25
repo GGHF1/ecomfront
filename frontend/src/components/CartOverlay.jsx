@@ -2,13 +2,59 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CartContext from '../context/CartContext';
 import '../styles/cart-overlay.scss';
+import { useMutation } from '@apollo/client';
+import { PLACE_ORDER } from '../graphql/mutations';
+import { useEffect } from 'react';
 
 function CartOverlay({ onClose }) {
-  const { cart, updateQuantity, toggleCart } = useContext(CartContext);
+  const { cart, clearCart, updateQuantity } = useContext(CartContext); // Add updateQuantity here
+  const [placeOrder] = useMutation(PLACE_ORDER);
   
   const handleClose = () => {
     if (onClose) onClose();
     else toggleCart();
+  };
+
+  useEffect(() => {
+    // Disable scroll on mount
+    document.body.style.overflow = 'hidden';
+
+    // Re-enable scroll on unmount
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  const handlePlaceOrder = async () => {
+    try {
+      // Prepare order data
+      const products = cart.map(item => item.product.id);
+      const quantities = cart.map(item => item.quantity);
+      const attributes = cart.map(item => 
+        Object.entries(item.selectedOptions).map(([key, value]) => `${key}:${value}`)
+      );
+      const totalPrice = cart.reduce((total, item) => {
+        const priceItem = item.product.prices.find(p => p?.currency?.label === 'USD') || 
+                       (item.product.prices.length > 0 ? item.product.prices[0] : null);
+        return total + (priceItem ? priceItem.amount * item.quantity : 0);
+      }, 0);
+
+      // Call mutation
+      const { data } = await placeOrder({
+        variables: { products, quantities, attributes, totalPrice }
+      });
+
+      if (data?.createOrder) {
+        alert('Order placed successfully!');
+        clearCart();
+        onClose();
+      } else {
+        alert('Failed to place order');
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Error placing order: ' + error.message);
+    }
   };
   
   // total price
@@ -132,7 +178,7 @@ function CartOverlay({ onClose }) {
           </div>
           
           <div className="cart-actions">
-            <button className="checkout-btn" data-testid="checkout-button">
+            <button className="checkout-btn" onClick={handlePlaceOrder} data-testid="checkout-button">
               Place Order
             </button>
           </div>

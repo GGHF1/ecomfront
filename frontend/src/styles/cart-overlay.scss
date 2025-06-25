@@ -1,3 +1,4 @@
+/* Main container overlay */
 .cart-overlay-container {
     position: fixed;
     top: 80px;
@@ -7,6 +8,7 @@
     z-index: 999;
   }
   
+  /* Background dim effect */
   .cart-overlay-backdrop {
     position: fixed;
     top: 80px;
@@ -17,6 +19,7 @@
     z-index: 998;
   }
   
+  /* Cart panel */
   .cart-overlay {
     position: absolute;
     top: 0;
@@ -31,6 +34,7 @@
     margin-right: 40px;
   }
   
+  /* Title section */
   .cart-title {
     font-size: 16px;
     font-weight: 700;
@@ -61,6 +65,7 @@
     border-top: none;
   }
   
+  /* Item text info */
   .cart-item-details {
     flex: 1;
   }
@@ -78,6 +83,7 @@
     margin: 8px 0 12px;
   }
   
+  /* Attributes section */
   .cart-item-attribute {
     margin-bottom: 8px;
   }
@@ -94,6 +100,7 @@
     gap: 8px;
   }
   
+  /* Color swatch style */
   .color-swatch {
     width: 24px;
     height: 24px;
@@ -104,6 +111,7 @@
     border: 1px solid #5ECE7B;
   }
   
+  /* Text attribute buttons (like size) */
   .attribute-value {
     min-width: 24px;
     height: 24px;
@@ -120,6 +128,7 @@
     color: white;
   }
   
+  /* Quantity control */
   .cart-item-quantity {
     display: flex;
     flex-direction: column;
@@ -145,6 +154,7 @@
     font-weight: 500;
   }
   
+  /* Item image */
   .cart-item-image {
     width: 120px;
     height: 190px;
@@ -157,8 +167,9 @@
     object-fit: cover;
   }
   
+  /* Footer (total + buttons) */
   .cart-footer {
-    margin-top: 15px;
+    margin-top: 16px;
   }
   
   .cart-total {
@@ -175,6 +186,7 @@
     gap: 12px;
   }
   
+  /* Buttons */
   .view-bag-btn,
   .checkout-btn {
     flex: 1;
