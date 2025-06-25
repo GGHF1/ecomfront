@@ -1,3 +1,8 @@
 RewriteEngine on
-RewriteRule .* /public/$0 [L]
+
+# Redirect all requests to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /public/index.html [L]
+
 DirectoryIndex index.php
